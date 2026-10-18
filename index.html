@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Phone</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111216;
+  font-family: -apple-system, BlinkMacSystemFont, "Arial", sans-serif;
+  color: white;
+}
+
+.phone {
+  width: min(100%, 390px);
+  min-height: 780px;
+  padding: 22px;
+  border: 7px solid #292a30;
+  border-radius: 42px;
+  background: linear-gradient(160deg, #202b3a, #10131d 55%, #25213a);
+  position: relative;
+  overflow: hidden;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 8px 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.greeting {
+  margin-top: 28px;
+  font-size: 14px;
+  color: #d4d9e5;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 8px 0;
+}
+
+.date {
+  color: #d4d9e5;
+  margin-bottom: 32px;
+}
+
+.widget {
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 30px;
+}
+
+.widget-title {
+  font-size: 13px;
+  color: #d8dce6;
+}
+
+.widget-text {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 8px;
+}
+
+.app {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+  min-width: 0;
+}
+
+.icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 7px;
+  font-size: 27px;
+  background: #555d70;
+}
+
+.app-name {
+  font-size: 12px;
+}
+
+.messages { background: #4d91ff; }
+.photos { background: #d5a8ef; }
+.music { background: #ee668a; }
+.camera { background: #50535c; }
+.notes { background: #f0cf63; }
+.calendar { background: #f1f1f1; color: #d94a4a; }
+.settings { background: #6d7889; }
+.browser { background: #56b6ce; }
+
+.dock {
+  position: absolute;
+  bottom: 18px;
+  left: 15px;
+  right: 15px;
+  padding: 12px 8px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.16);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.dock .icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0;
+}
+
+.screen {
+  display: none;
+  min-height: 400px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(0,0,0,0.22);
+}
+
+.screen h2 {
+  margin-top: 0;
+}
+
+.back {
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 15px;
+  background: rgba(255,255,255,0.16);
+  color: white;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.screen p {
+  line-height: 1.7;
+  color: #e0e3eb;
+}
+
+@media (max-height: 850px) {
+  body {
+    align-items: flex-start;
+  }
+  .phone {
+    min-height: 780px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="phone">
+  <div class="status">
+    <span id="clock">23:25</span>
+    <span>● Wi-Fi ▰</span>
+  </div>
+
+  <div id="home">
+    <div class="greeting">MY PERSONAL SPACE</div>
+    <h1>안녕, 주인님!</h1>
+    <div class="date" id="today"></div>
+
+    <div class="widget">
+      <div class="widget-title">TODAY'S MOOD</div>
+      <div class="widget-text">오늘도 나답게 ✦</div>
+    </div>
+
+    <div class="apps">
+      <button class="app" onclick="openApp('messages')">
+        <div class="icon messages">✉</div><div class="app-name">메시지</div>
+      </button>
+      <button class="app" onclick="openApp('photos')">
+        <div class="icon photos">🌷</div><div class="app-name">사진첩</div>
+      </button>
+      <button class="app" onclick="openApp('music')">
+        <div class="icon music">♫</div><div class="app-name">음악</div>
+      </button>
+      <button class="app" onclick="openApp('camera')">
+        <div class="icon camera">◎</div><div class="app-name">카메라</div>
+      </button>
+      <button class="app" onclick="openApp('notes')">
+        <div class="icon notes">▤</div><div class="app-name">메모</div>
+      </button>
+      <button class="app" onclick="openApp('calendar')">
+        <div class="icon calendar">31</div><div class="app-name">캘린더</div>
+      </button>
+      <button class="app" onclick="openApp('settings')">
+        <div class="icon settings">⚙</div><div class="app-name">설정</div>
+      </button>
+      <button class="app" onclick="openApp('browser')">
+        <div class="icon browser">◎</div><div class="app-name">인터넷</div>
+      </button>
+    </div>
+  </div>
+
+  <div id="screen" class="screen">
+    <button class="back" onclick="goHome()">‹ 홈으로</button>
+    <h2 id="screenTitle"></h2>
+    <div id="screenContent"></div>
+  </div>
+
+  <div class="dock">
+    <button class="app" onclick="openApp('messages')">
+      <div class="icon messages">✉</div>
+    </button>
+    <button class="app" onclick="openApp('photos')">
+      <div class="icon photos">🌷</div>
+    </button>
+    <button class="app" onclick="openApp('music')">
+      <div class="icon music">♫</div>
+    </button>
+    <button class="app" onclick="openApp('settings')">
+      <div class="icon settings">⚙</div>
+    </button>
+  </div>
+</div>
+
+<script>
+const appData = {
+  messages: {
+    title: "메시지",
+    text: "여기는 나만의 메시지 앱이야. 💌<br>다음 단계에서 대화 화면을 만들어 보자!"
+  },
+  photos: {
+    title: "사진첩",
+    text: "소중한 사진들이 모이는 공간. 🌷<br>나중에 사진을 직접 추가할 수 있게 만들자!"
+  },
+  music: {
+    title: "음악",
+    text: "♫<br>좋아하는 노래와 플레이리스트를 담을 공간이야."
+  },
+  camera: {
+    title: "카메라",
+    text: "나만의 카메라 앱이야. 📷<br>현재는 화면 디자인만 만들어 둔 상태야."
+  },
+  notes: {
+    title: "메모",
+    text: "잊고 싶지 않은 생각을 적어 두는 공간. ✎"
+  },
+  calendar: {
+    title: "캘린더",
+    text: "오늘 날짜는 <span id='calendarDate'></span> 이야."
+  },
+  settings: {
+    title: "설정",
+    text: "MY PHONE<br><br>나만의 가상 스마트폰<br>Version 1.0"
+  },
+  browser: {
+    title: "인터넷",
+    text: "나만의 인터넷 앱이야. 🌐"
+  }
+};
+
+function openApp(name) {
+  const app = appData[name];
+  document.getElementById("home").style.display = "none";
+  document.querySelector(".dock").style.display = "none";
+  document.getElementById("screen").style.display = "block";
+  document.getElementById("screenTitle").textContent = app.title;
+  document.getElementById("screenContent").innerHTML = "<p>" + app.text + "</p>";
+
+  const calendarDate = document.getElementById("calendarDate");
+  if (calendarDate) {
+    calendarDate.textContent = new Date().toLocaleDateString("ko-KR");
+  }
+}
+
+function goHome() {
+  document.getElementById("home").style.display = "block";
+  document.querySelector(".dock").style.display = "grid";
+  document.getElementById("screen").style.display = "none";
+}
+
+function updateTime() {
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
+    });
+
+  document.getElementById("today").textContent =
+    now.toLocaleDateString("ko-KR", {
+      month: "long",
+      day: "numeric",
+      weekday: "long"
+    });
+}
+
+updateTime();
+setInterval(updateTime, 30000);
+</script>
+</body>
+</html>
